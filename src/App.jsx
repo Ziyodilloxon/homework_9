@@ -14,7 +14,7 @@ import Product from "./pages/Product";
 import Purchased from "./pages/Purchased";
 import Login from "./pages/Login";
 import Signin from "./pages/Signin";
-
+import Dashboard from "./pages/Dashboard";
 
 // react router dom imports
 import {
@@ -24,11 +24,13 @@ import {
 } from "react-router-dom";
 
 // context
-import { useContext } from "react";
-import { GlobalContext } from "./context/globalContext";
+import { useGlobalContext } from "./hooks/useGlobalContext";
+import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase/firebaseConfig";
 
 function App() {
-  const { user } = useContext(GlobalContext);
+  const { user, dispatch, isAuthChange } = useGlobalContext();
   const routes = createBrowserRouter([
     {
       path: "/",
@@ -58,6 +60,10 @@ function App() {
           path: "/product/:id",
           element: <Product />,
         },
+        {
+          path: "/dashboard",
+          element: <Dashboard />,
+        },
       ],
     },
     {
@@ -70,7 +76,14 @@ function App() {
     },
   ]);
 
-  return <RouterProvider router={routes} />;
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      dispatch({ type: "LOG_IN", payload: user });
+      dispatch({ type: "AUTH_CHANGE" });
+    });
+  }, []);
+
+  return <>{isAuthChange && <RouterProvider router={routes} />}</>;
 }
 
 export default App;

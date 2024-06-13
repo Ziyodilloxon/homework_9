@@ -18,6 +18,9 @@ const links = [
     text: "Contact",
     link: "/contact",
   },
+  { id: 4,
+     text: "Dashboard",
+      link: "/dashboard", },
 ];
 function NavLinks() {
   return (

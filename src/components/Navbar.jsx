@@ -1,6 +1,9 @@
 // react router dom imports
 import { Link, NavLink } from "react-router-dom";
 
+// auth && firebase components
+import { auth } from "../firebase/firebaseConfig";
+import { signOut } from "firebase/auth";
 // react icons
 import { IoMdSunny, IoMdMoon } from "react-icons/io";
 import { RiShoppingCartFill } from "react-icons/ri";
@@ -11,9 +14,21 @@ import NavLinks from "./NavLinks";
 // react hooks
 
 import { useEffect, useState } from "react";
+import { useGlobalContext } from "../hooks/useGlobalContext";
 
 function Navbar() {
+  const { total, user } = useGlobalContext();
   const [theme, setTheme] = useState(themeFromLocalStorage);
+
+  const logOut = () => {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
 
   function themeFromLocalStorage() {
     return localStorage.getItem("theme") || "emerland";
@@ -42,14 +57,17 @@ function Navbar() {
           </ul>
         </div>
         <div className="indicator">
-          <span className="indicator-item badge badge-secondary">0</span>
+          <span className="indicator-item badge badge-secondary"> {total}</span>
           <NavLink to="/purchased">
             <button className="btn">
               <RiShoppingCartFill className="w-5 h-5" />
             </button>
           </NavLink>
         </div>
-        <div className="navbar-end">
+        <div className="navbar-end flex gap-4">
+          <button onClick={logOut} className="btn btn-secondary">
+            Log out
+          </button>
           <label className="swap swap-rotate">
             {/* this hidden checkbox controls the state */}
             <input
