@@ -5,7 +5,7 @@ function Login() {
   return (
     <div className="min-h-screen grid place-items-center">
       <button onClick={signUpWithGoogle} className="btn btn-secondary">
-        Google
+        Tap to Login
       </button>
     </div>
   );
