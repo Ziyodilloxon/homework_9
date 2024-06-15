@@ -3,6 +3,10 @@ import "./App.css";
 
 // components
 import ProtectedRoutes from "./components/ProtectedRoutes";
+
+// action
+
+import { action as signInAction } from "./pages/Signin";
 // layout
 import MainLayout from "./layout/MainLayout";
 
@@ -73,6 +77,7 @@ function App() {
     {
       path: "/signin",
       element: user ? <Navigate to="/" /> : <Signin />,
+      action: signInAction,
     },
   ]);
 
