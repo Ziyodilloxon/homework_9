@@ -7,6 +7,8 @@ const changeState = (state, action) => {
   switch (type) {
     case "LOG_IN":
       return { ...state, user: payload };
+    case "SIGN_IN":
+      return { ...state, user: action.payload };
     case "LOG_OUT":
       return { ...state, user: null };
     case "AUTH_CHANGE":

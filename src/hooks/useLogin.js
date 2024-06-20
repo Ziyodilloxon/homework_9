@@ -1,20 +1,29 @@
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
-import { useGlobalContext } from "./useGlobalContext";
-function useLogin() {
-  const { dispatch } = useGlobalContext();
-  const signUpWithGoogle = async () => {
-    const provider = new GoogleAuthProvider();
+import { useState } from "react";
 
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      dispatch({ type: "LOG_IN", payload: user });
-    } catch (error) {
-      const errorMessage = error.message;
-    }
+import { useGlobalContext } from "./useGlobalContext";
+
+function useLogin() {
+  const [user, setUser] = useState(null);
+  const [error, setError] = useState(null);
+
+  const { dispatch } = useGlobalContext();
+
+  const signinEmailAndPassword = (email, password) => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        dispatch({ type: "SIGN_IN", payload: user });
+        setUser(user);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setError(errorMessage);
+      });
   };
-  return { signUpWithGoogle };
+  return { signinEmailAndPassword, user, error };
 }
 
-export { useLogin };
+export default useLogin;

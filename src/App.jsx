@@ -16,8 +16,8 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Product from "./pages/Product";
 import Purchased from "./pages/Purchased";
-import Login from "./pages/Login";
-import Signin from "./pages/Signin";
+import Signin from "./pages/Login";
+import Signup from "./pages/Signin";
 import Dashboard from "./pages/Dashboard";
 
 // react router dom imports
@@ -26,6 +26,10 @@ import {
   Navigate,
   RouterProvider,
 } from "react-router-dom";
+
+// action
+import { action as signupAction } from "./pages/Login";
+import { action as signinAction } from "./pages/Signin";
 
 // context
 import { useGlobalContext } from "./hooks/useGlobalContext";
@@ -72,19 +76,24 @@ function App() {
     },
     {
       path: "/login",
-      element: user ? <Navigate to="/" /> : <Login />,
+      element: user ? <Navigate to="/" /> : <Signin />,
+      action: signinAction,
     },
     {
       path: "/signin",
-      element: user ? <Navigate to="/" /> : <Signin />,
-      action: signInAction,
+      element: user ? <Navigate to="/" /> : <Signup />,
+      action: signupAction,
     },
   ]);
-
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      dispatch({ type: "LOG_IN", payload: user });
-      dispatch({ type: "AUTH_CHANGE" });
+      dispatch({
+        type: "LOG_IN",
+        payload: user,
+      });
+      dispatch({
+        type: "AUTH_CHANGE",
+      });
     });
   }, []);
 

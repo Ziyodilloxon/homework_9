@@ -1,16 +1,16 @@
 import React from "react";
 
-function FormInput({ labelText, type, name }) {
+function FormInput({ label, type, name }) {
   return (
     <div>
       <label className="form-control w-full max-w-xs">
         <div className="label">
-          <span className="label-text">{labelText}</span>
+          <span className="label-text">{label}</span>
         </div>
         <input
           type={type}
           name={name}
-          placeholder={labelText}
+          placeholder={label}
           className="input input-bordered w-full max-w-xs"
         />
       </label>
