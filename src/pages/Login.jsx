@@ -4,7 +4,7 @@ import { FcGoogle } from "react-icons/fc";
 import { Link, Form, useActionData } from "react-router-dom";
 
 import FormInput from "../components/FormInput";
-import  useLogin  from "../hooks/useLogin";
+import useLogin from "../hooks/useLogin";
 
 export const action = async ({ request }) => {
   let formData = await request.formData();
@@ -36,7 +36,10 @@ function Signin() {
           <FormInput type="email" label="Email:" name="Email" />
           <FormInput type="password" label="Password:" name="Password" />
           <div>
-            <button className="btn btn-secondary w-full mb-3" type="submit">
+            <button
+              className="btn btn-secondary  mb-3 mt-8 btn-block"
+              type="submit"
+            >
               Submit
             </button>
             <button

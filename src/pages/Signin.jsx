@@ -41,14 +41,14 @@ function Signup() {
           <FormInput type="url" label="PhotoUrl" name="Photo" />
           <FormInput type="email" label="Email:" name="Email" />
           <FormInput type="password" label="Password:" name="Password" />
-          <div>
-            <button className="btn btn-secondary w-full mb-3" type="submit">
+          <div className="mt-8">
+            <button className="btn btn-secondary w-full mb-3 " type="submit">
               Submit
             </button>
             <button
               type="button"
               onClick={signupWithGoogle}
-              className="btn btn-secondary w-full mb-5"
+              className="btn btn-secondary w-full mb-5 "
             >
               <FcGoogle className="text-3xl" />
               <span className="text-2xl">Google</span>
